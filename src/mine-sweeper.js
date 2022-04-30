@@ -16,16 +16,36 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [false, false, false]
  * ]
  *
- * The result should be following:
+ * The playField should be following:
  * [
  *  [1, 2, 1],
  *  [2, 1, 1],
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  const playField = matrix.map(el => el.map(e => 0));
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      if (matrix[i - 1]) {
+        if (matrix[i - 1] && matrix[i - 1][j - 1]) playField[i][j]++;
+        if (matrix[i - 1] && matrix[i - 1][j]) playField[i][j]++;
+        if (matrix[i - 1] && matrix[i - 1][j + 1]) playField[i][j]++;
+      }
+
+      if (matrix[i] && matrix[i][j - 1]) playField[i][j]++;
+      if (matrix[i] && matrix[i][j + 1]) playField[i][j]++;
+
+      if (matrix[i + 1]) {
+        if (matrix[i + 1] && matrix[i + 1][j - 1]) playField[i][j]++;
+        if (matrix[i + 1] && matrix[i + 1][j]) playField[i][j]++;
+        if (matrix[i + 1] && matrix[i + 1][j + 1]) playField[i][j]++;
+      }
+    }
+  }
+
+  return playField;
 }
 
 module.exports = {
