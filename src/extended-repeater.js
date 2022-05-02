@@ -1,11 +1,11 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
 /**
- * Create a repeating string based on the given parameters
+ * Create a repeating mainString based on the given parameters
  *  
- * @param {String} str string to repeat
+ * @param {String} mainStr mainString to repeat
  * @param {Object} options options object 
- * @return {String} repeating string
+ * @return {String} repeating mainString
  * 
  *
  * @example
@@ -15,11 +15,27 @@ const { NotImplementedError } = require('../extensions/index.js');
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-function repeater(/* str, options */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
-}
+function repeater(str, options) {
+  let {
+    repeatTimes: repeatTimes = 1,
+    separator: separator = '+',
+    addition: addition = '',
+    additionRepeatTimes: additionRepeatTimes = 1,
+    additionSeparator: additionSeparator = '|',
+  } = options;
 
+  str = String(str);
+  addition = String(addition);
+  const mainStr = [];
+  const addStr = [];
+  for (let i = 0; i < additionRepeatTimes; i++) {
+    addStr.push(addition);
+  }
+  for (let j = 0; j < repeatTimes; j++) {
+    mainStr.push(str + addStr.join(additionSeparator))
+  }
+  return mainStr.join(separator) || str + addition;
+}
 module.exports = {
   repeater
 };
